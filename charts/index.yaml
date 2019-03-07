@@ -3,7 +3,27 @@ entries:
   kafka-rest:
   - apiVersion: v1
     appVersion: 5.1.2
-    created: 2019-03-07T13:40:02.651536165+03:00
+    created: 2019-03-07T13:41:47.078191325+03:00
+    description: rest
+    digest: 8ed972758e641bdb161722972a03468297f5cd2c23a454616a761989c936aee2
+    home: https://docs.confluent.io/current/kafka-rest/docs/index.html
+    icon: https://www.confluent.io/wp-content/themes/confluent/assets/images/confluent-logo-300.png
+    keywords:
+    - confluent
+    - kafka
+    - rest
+    maintainers:
+    - email: denis.puchkin@gmail.com
+      name: denisvll
+    name: kafka-rest
+    sources:
+    - https://github.com/confluentinc/cp-docker-images
+    urls:
+    - kafka-rest-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v1
+    appVersion: 5.1.2
+    created: 2019-03-07T13:41:47.077560696+03:00
     description: rest
     digest: 83dfbb4c62c5249e15e68adffcb8afd4501a3ba1e58bbfc8af42eaf1a7114b72
     home: https://docs.confluent.io/current/kafka-rest/docs/index.html
@@ -21,4 +41,4 @@ entries:
     urls:
     - kafka-rest-0.0.1.tgz
     version: 0.0.1
-generated: 2019-03-07T13:40:02.651030257+03:00
+generated: 2019-03-07T13:41:47.077055313+03:00
