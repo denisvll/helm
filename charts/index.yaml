@@ -3,7 +3,27 @@ entries:
   kafka-rest:
   - apiVersion: v1
     appVersion: 5.1.2
-    created: 2019-07-07T14:58:48.927047+03:00
+    created: 2019-07-07T15:24:15.026254+03:00
+    description: rest
+    digest: 2b936ecf232cc22653e16009c883f2475b2de35c2059bec58122522c30a13eb8
+    home: https://docs.confluent.io/current/kafka-rest/docs/index.html
+    icon: https://www.confluent.io/wp-content/themes/confluent/assets/images/confluent-logo-300.png
+    keywords:
+    - confluent
+    - kafka
+    - rest
+    maintainers:
+    - email: denis.puchkin@gmail.com
+      name: denisvll
+    name: kafka-rest
+    sources:
+    - https://github.com/confluentinc/cp-docker-images
+    urls:
+    - https://denisvll.github.io/helm/charts/kafka-rest-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v1
+    appVersion: 5.1.2
+    created: 2019-07-07T15:24:15.02592+03:00
     description: rest
     digest: ed63c72f8ad5d4e87f6afb6436381617d170d619cbd58d618294dfbc46a223fd
     home: https://docs.confluent.io/current/kafka-rest/docs/index.html
@@ -23,7 +43,7 @@ entries:
     version: 0.0.3
   - apiVersion: v1
     appVersion: 5.1.2
-    created: 2019-07-07T14:58:48.926242+03:00
+    created: 2019-07-07T15:24:15.025159+03:00
     description: rest
     digest: 8ed972758e641bdb161722972a03468297f5cd2c23a454616a761989c936aee2
     home: https://docs.confluent.io/current/kafka-rest/docs/index.html
@@ -44,7 +64,7 @@ entries:
   kafka-topics-ui:
   - apiVersion: v1
     appVersion: 0.9.4
-    created: 2019-07-07T14:58:48.927369+03:00
+    created: 2019-07-07T15:24:15.027014+03:00
     description: rest
     digest: 7423dedc232cf50381e8f86b03f2ba465ff1c968743561e33a70fb1e42602782
     home: https://github.com/Landoop/kafka-topics-ui
@@ -62,4 +82,4 @@ entries:
     urls:
     - https://denisvll.github.io/helm/charts/kafka-topics-ui-0.0.1.tgz
     version: 0.0.1
-generated: 2019-07-07T14:58:48.925279+03:00
+generated: 2019-07-07T15:24:15.024186+03:00

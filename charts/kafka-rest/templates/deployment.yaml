@@ -29,7 +29,7 @@ spec:
             - name: KAFKA_REST_SCHEMA_REGISTRY_URL
               value: {{ .Values.schemaregistry.url }}
             {{- range $key, $value := .Values.configurationOverrides }}
-            - name: {{ printf "KAFKA_%s" $key | replace "." "_" | upper | quote }}
+            - name: {{ printf "KAFKA_REST_%s" $key | replace "." "_" | upper | quote }}
               value: {{ $value | quote }}
             {{- end }}
 
