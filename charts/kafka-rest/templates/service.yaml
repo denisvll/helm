@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "schema-registry.fullname" . }}
+  name: {{ template "kafka-rest.fullname" . }}
   labels:
-    app: {{ template "schema-registry.name" . }}
+    app: {{ template "kafka-rest.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
 spec:
   ports:
-    - name: schema-registry
-      port: {{ .Values.servicePort }}
+    - name: kafka-rest
+      port: {{ .Values.service.port }}
   selector:
-    app: {{ template "schema-registry.name" . }}
+    app: {{ template "kafka-rest.name" . }}
     release: {{ .Release.Name | quote}}

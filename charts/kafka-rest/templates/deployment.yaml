@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "schema-registry.fullname" . }}
+  name: {{ template "kafka-rest.fullname" . }}
   labels:
-    app: {{ template "schema-registry.name" . }}
+    app: {{ template "kafka-rest.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -12,23 +12,31 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "schema-registry.name" . }}
+        app: {{ template "kafka-rest.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.servicePort }}
-            {{- if .Values.external.enabled }}
-            - containerPort: {{ .Values.external.servicePort }}
-              name: external
+            - containerPort: 8082
+          env:
+            - name: KAFKA_REST_ZOOKEEPER_CONNECT
+              value: {{ .Values.zookeeper.zkHosts }}
+            - name: KAFKA_REST_HOST_NAME
+              value: localhost
+            - name: KAFKA_REST_SCHEMA_REGISTRY_URL
+              value: {{ .Values.schemaregistry.url }}
+            {{- range $key, $value := .Values.configurationOverrides }}
+            - name: {{ printf "KAFKA_%s" $key | replace "." "_" | upper | quote }}
+              value: {{ $value | quote }}
             {{- end }}
+
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.servicePort }}
+              port: {{ .Values.service.port }}
             {{- if not .Values.livenessProbe }}
             initialDelaySeconds: 10
             timeoutSeconds: 5
@@ -48,9 +56,9 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.servicePort }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds | default 10}}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds | default 5}}
-            successThreshold: {{ .Values.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3

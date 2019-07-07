@@ -10,8 +10,7 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: LoadBalancer
-  port: 80
+  port: 8082
   annotations: {}
   ## Limit load balancer source ips to list of CIDRs (where available)
   # loadBalancerSourceRanges: []
@@ -20,6 +19,9 @@ restlisteners:
   url: "http://localhost"
   port: 8082
 
+schemaregistry:
+  url: http://kub-kafka-schema-registry.local:8081
+
 zookeeper:
   zkHosts: localhost:2181
 
@@ -27,10 +29,14 @@ ingress:
   enabled: false
   annotations: {}
   path: /
-  hosts:
-    - kafka-rest.local
-  tls: []
+  hostname: kafka-rest.local
+  tls:
+    enabled: false
 
+
+configurationOverrides:
+  access.control.allow.methods: GET,POST,PUT,OPTIONS
+  access.control.allow.origin: '*'
 resources: {}
 
 nodeSelector: {}
