@@ -12,8 +12,6 @@ image:
 service:
   port: 8082
   annotations: {}
-  ## Limit load balancer source ips to list of CIDRs (where available)
-  # loadBalancerSourceRanges: []
 
 restlisteners:
   url: "http://localhost"

@@ -1,0 +1,16 @@
+name: kafka-topics-ui
+home: https://github.com/Landoop/kafka-topics-ui
+version: 0.0.1
+appVersion: 0.9.4
+keywords:
+  - confluent
+  - kafka
+  - rest
+description: rest
+icon: https://www.confluent.io/wp-content/themes/confluent/assets/images/confluent-logo-300.png
+apiVersion: v1
+sources:
+- https://github.com/confluentinc/cp-docker-images
+maintainers:
+- name: denisvll
+  email: denis.puchkin@gmail.com

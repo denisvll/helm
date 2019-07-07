@@ -1,0 +1,60 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "kafka-topics-ui.fullname" . }}
+  labels:
+    app: {{ template "kafka-topics-ui.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kafka-topics-ui.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: KAFKA_REST_PROXY_URL
+              value: {{ .Values.kafkarest.url }}
+            {{- range $key, $value := .Values.configurationOverrides }}
+            - name: {{ printf "KAFKA_%s" $key | replace "." "_" | upper | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            {{- if not .Values.livenessProbe }}
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            {{- else }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 10}}
+            {{- if .Values.livenessProbe.periodSeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            {{- end }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds | default 5}}
+            {{- if .Values.livenessProbe.successThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            {{- end }}
+            {{- if .Values.livenessProbe.failureThreshold }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            {{- end }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
